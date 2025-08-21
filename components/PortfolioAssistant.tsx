@@ -19,7 +19,7 @@ const PortfolioAssistant: React.FC = () => {
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       setMessages([
-        { id: 'initial-ai-message', text: `Hello! I'm ${PROFILE_INFO.name}'s AI assistant. Feel free to ask me anything about his skills, projects, or experience.`, sender: 'ai' }
+        { id: 'initial-ai-message', text: `Hello! I'm Ken, ${PROFILE_INFO.name}'s AI assistant. Feel free to ask me anything about his skills, projects, or experience.`, sender: 'ai' }
       ]);
     }
   }, [isOpen, messages.length]);
@@ -70,7 +70,7 @@ const PortfolioAssistant: React.FC = () => {
           <button
             onClick={toggleChat}
             className="bg-accent text-text-primary w-16 h-16 rounded-full shadow-lg flex items-center justify-center hover:bg-accent-hover transition-transform transform hover:scale-110"
-            aria-label="Toggle Portfolio Assistant"
+            aria-label="Toggle Ken, the AI Assistant"
           >
             {isOpen ? <CloseIcon className="w-8 h-8" /> : <ChatIcon className="w-8 h-8" />}
           </button>
@@ -86,7 +86,7 @@ const PortfolioAssistant: React.FC = () => {
           />
           <div className="fixed bottom-24 right-6 left-6 sm:left-auto sm:w-full sm:max-w-md bg-secondary rounded-lg shadow-2xl flex flex-col h-[60vh] sm:h-[70vh] z-50 animate-slide-in-up">
             <header className="bg-primary p-4 flex items-center justify-between rounded-t-lg">
-              <h3 className="text-lg font-bold">Portfolio Assistant</h3>
+              <h3 className="text-lg font-bold">Ken</h3>
               <button onClick={toggleChat} className="text-text-secondary hover:text-text-primary">
                 <CloseIcon className="w-6 h-6" />
               </button>
