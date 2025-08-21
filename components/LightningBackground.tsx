@@ -12,10 +12,12 @@ const LightningBackground: React.FC = () => {
 
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
+        let isMobile = width < 768;
 
         const resizeHandler = () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
+            isMobile = width < 768;
         };
 
         window.addEventListener('resize', resizeHandler);
@@ -27,17 +29,21 @@ const LightningBackground: React.FC = () => {
             const x = Math.random() < 0.5 ? 0 : width; // Start from top-left or top-right
             const y = 0; // Start from the top
             const endX = Math.random() * width;
-            const endY = Math.random() * height;
+            // Bolts don't always go to the very bottom on mobile to keep hero text clear
+            const endY = Math.random() * height * (isMobile ? 0.75 : 1); 
             
             lightning.push({ x, y, x2: x, y2: y, life: maxLife, alpha: 1 });
 
             let currentX = x;
             let currentY = y;
-            const segments = 20 + Math.floor(Math.random() * 10); // Varied segments
+            // Fewer segments for simpler bolts on mobile
+            const segments = (isMobile ? 12 : 20) + Math.floor(Math.random() * (isMobile ? 8 : 10));
 
             for (let i = 0; i < segments; i++) {
-                const targetX = x + (endX - x) * (i + 1) / segments + (Math.random() - 0.5) * 150;
-                const targetY = y + (endY - y) * (i + 1) / segments + (Math.random() - 0.5) * 150;
+                // Smaller random jaggedness on mobile
+                const randomOffset = isMobile ? width * 0.25 : 150; 
+                const targetX = x + (endX - x) * (i + 1) / segments + (Math.random() - 0.5) * randomOffset;
+                const targetY = y + (endY - y) * (i + 1) / segments + (Math.random() - 0.5) * randomOffset;
                 
                 lightning.push({
                     x: currentX,
@@ -58,7 +64,9 @@ const LightningBackground: React.FC = () => {
         const animate = () => {
             ctx.clearRect(0, 0, width, height);
 
-            if (Math.random() > 0.97) { // Reduced frequency
+            // Less frequent strikes on mobile
+            const strikeProbability = isMobile ? 0.99 : 0.97;
+            if (Math.random() > strikeProbability) {
                 createBolt();
             }
 
@@ -77,7 +85,8 @@ const LightningBackground: React.FC = () => {
                 ctx.moveTo(l.x, l.y);
                 ctx.lineTo(l.x2, l.y2);
                 ctx.strokeStyle = `rgba(252, 252, 252, ${l.alpha * 0.25})`; // Faint white/grey
-                ctx.lineWidth = Math.random() * 1.5 + 0.2; // Thinner lines
+                // Thinner lines on mobile
+                ctx.lineWidth = isMobile ? (Math.random() * 1.0 + 0.2) : (Math.random() * 1.5 + 0.2); 
                 ctx.shadowBlur = 15;
                 ctx.shadowColor = `rgba(163, 193, 55, ${l.alpha * 0.5})`; // Subtle green glow to match accent
                 ctx.stroke();
