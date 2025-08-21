@@ -78,7 +78,7 @@ const PortfolioAssistant: React.FC = () => {
       </div>
 
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-full max-w-md bg-secondary rounded-lg shadow-2xl flex flex-col h-[70vh] z-50 animate-slide-in-up">
+        <div className="fixed bottom-24 right-6 left-6 sm:left-auto sm:w-full sm:max-w-md bg-secondary rounded-lg shadow-2xl flex flex-col h-[60vh] sm:h-[70vh] z-50 animate-slide-in-up">
           <header className="bg-primary p-4 flex items-center justify-between rounded-t-lg">
             <h3 className="text-lg font-bold">Portfolio Assistant</h3>
             <button onClick={toggleChat} className="text-text-secondary hover:text-text-primary">
