@@ -43,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenServices }) => {
             {NAV_LINKS.map((link: NavLink) => (
               <li key={link.name}>
                 {link.name === 'Services' ? (
-                   <button
+                  <button
                     onClick={onOpenServices}
                     className="text-text-secondary hover:text-text-primary transition-colors font-medium"
                   >
