@@ -78,69 +78,76 @@ const PortfolioAssistant: React.FC = () => {
       </div>
 
       {isOpen && (
-        <div className="fixed bottom-24 right-6 left-6 sm:left-auto sm:w-full sm:max-w-md bg-secondary rounded-lg shadow-2xl flex flex-col h-[60vh] sm:h-[70vh] z-50 animate-slide-in-up">
-          <header className="bg-primary p-4 flex items-center justify-between rounded-t-lg">
-            <h3 className="text-lg font-bold">Portfolio Assistant</h3>
-            <button onClick={toggleChat} className="text-text-secondary hover:text-text-primary">
-              <CloseIcon className="w-6 h-6" />
-            </button>
-          </header>
-
-          <div ref={chatContainerRef} className="flex-1 p-4 overflow-y-auto space-y-4">
-            {messages.map((msg) => (
-              <div key={msg.id} className={`flex items-start gap-3 ${msg.sender === 'user' ? 'justify-end' : ''}`}>
-                {msg.sender === 'ai' && (
-                  <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
-                    <SparklesIcon className="w-5 h-5 text-text-primary" />
-                  </div>
-                )}
-                <div className={`max-w-xs md:max-w-sm px-4 py-2 rounded-lg ${msg.sender === 'user' ? 'bg-accent text-text-primary rounded-br-none' : 'bg-primary text-text-primary rounded-bl-none'}`}>
-                  <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
-                </div>
-                {msg.sender === 'user' && (
-                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                    <UserIcon className="w-5 h-5 text-text-primary" />
-                  </div>
-                )}
-              </div>
-            ))}
-            {isLoading && (
-              <div className="flex items-start gap-3">
-                 <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
-                    <SparklesIcon className="w-5 h-5 text-text-primary animate-pulse" />
-                  </div>
-                <div className="max-w-xs md:max-w-sm px-4 py-2 rounded-lg bg-primary text-text-primary rounded-bl-none">
-                  <div className="flex items-center space-x-1">
-                      <span className="w-2 h-2 bg-text-secondary rounded-full animate-pulse delay-75"></span>
-                      <span className="w-2 h-2 bg-text-secondary rounded-full animate-pulse delay-150"></span>
-                      <span className="w-2 h-2 bg-text-secondary rounded-full animate-pulse delay-300"></span>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="p-4 border-t border-primary">
-            <div className="flex items-center bg-primary rounded-lg">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Ask about my projects..."
-                className="flex-1 bg-transparent px-4 py-2 text-text-primary focus:outline-none"
-                disabled={isLoading}
-              />
-              <button
-                onClick={handleSend}
-                disabled={isLoading || !input.trim()}
-                className="p-3 text-accent hover:text-accent-hover disabled:text-text-secondary disabled:cursor-not-allowed"
-              >
-                <SendIcon className="w-6 h-6" />
+        <>
+          <div 
+            className="fixed inset-0 bg-primary/50 backdrop-blur-sm z-40 animate-fade-in"
+            onClick={toggleChat}
+            aria-hidden="true"
+          />
+          <div className="fixed bottom-24 right-6 left-6 sm:left-auto sm:w-full sm:max-w-md bg-secondary rounded-lg shadow-2xl flex flex-col h-[60vh] sm:h-[70vh] z-50 animate-slide-in-up">
+            <header className="bg-primary p-4 flex items-center justify-between rounded-t-lg">
+              <h3 className="text-lg font-bold">Portfolio Assistant</h3>
+              <button onClick={toggleChat} className="text-text-secondary hover:text-text-primary">
+                <CloseIcon className="w-6 h-6" />
               </button>
+            </header>
+
+            <div ref={chatContainerRef} className="flex-1 p-4 overflow-y-auto space-y-4">
+              {messages.map((msg) => (
+                <div key={msg.id} className={`flex items-start gap-3 ${msg.sender === 'user' ? 'justify-end' : ''}`}>
+                  {msg.sender === 'ai' && (
+                    <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                      <SparklesIcon className="w-5 h-5 text-text-primary" />
+                    </div>
+                  )}
+                  <div className={`max-w-xs md:max-w-sm px-4 py-2 rounded-lg ${msg.sender === 'user' ? 'bg-accent text-text-primary rounded-br-none' : 'bg-primary text-text-primary rounded-bl-none'}`}>
+                    <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
+                  </div>
+                  {msg.sender === 'user' && (
+                    <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                      <UserIcon className="w-5 h-5 text-text-primary" />
+                    </div>
+                  )}
+                </div>
+              ))}
+              {isLoading && (
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                      <SparklesIcon className="w-5 h-5 text-text-primary animate-pulse" />
+                    </div>
+                  <div className="max-w-xs md:max-w-sm px-4 py-2 rounded-lg bg-primary text-text-primary rounded-bl-none">
+                    <div className="flex items-center space-x-1">
+                        <span className="w-2 h-2 bg-text-secondary rounded-full animate-pulse delay-75"></span>
+                        <span className="w-2 h-2 bg-text-secondary rounded-full animate-pulse delay-150"></span>
+                        <span className="w-2 h-2 bg-text-secondary rounded-full animate-pulse delay-300"></span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="p-4 border-t border-primary">
+              <div className="flex items-center bg-primary rounded-lg">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                  placeholder="Ask about my projects..."
+                  className="w-0 flex-1 bg-transparent px-4 py-2 text-text-primary focus:outline-none"
+                  disabled={isLoading}
+                />
+                <button
+                  onClick={handleSend}
+                  disabled={isLoading || !input.trim()}
+                  className="p-3 flex-shrink-0 text-accent hover:text-accent-hover disabled:text-text-secondary disabled:cursor-not-allowed"
+                >
+                  <SendIcon className="w-6 h-6" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </>
   );
