@@ -1,9 +1,7 @@
 import React from 'react';
-import afterEffectsLogo from './icons8-adobe-after-effects-48.png'; // import PNG
+import afterEffectsLogo from './icons8-adobe-after-effects-48.png'; // your PNG
 
 const AfterEffectsIcon: React.FC<{ className?: string }> = ({ className }) => {
-  // size of the inner image (you can tweak if needed)
-  const imgSize = 48;
   const boxWidth = 100;
   const boxHeight = 98;
 
@@ -16,10 +14,11 @@ const AfterEffectsIcon: React.FC<{ className?: string }> = ({ className }) => {
       <rect width={boxWidth} height={boxHeight} rx="22" fill="#1F0120" />
       <image
         href={afterEffectsLogo}
-        width={imgSize}
-        height={imgSize}
-        x={(boxWidth - imgSize) / 2}   // center horizontally
-        y={(boxHeight - imgSize) / 2} // center vertically
+        x="0"
+        y="0"
+        width={boxWidth}
+        height={boxHeight}
+        preserveAspectRatio="xMidYMid meet" // keeps aspect ratio but fills
       />
     </svg>
   );
