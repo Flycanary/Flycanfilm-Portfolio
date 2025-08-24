@@ -19,7 +19,10 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenServices }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
     e.preventDefault();
     onNavigate(href);
   };
@@ -27,23 +30,30 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenServices }) => {
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-secondary/80 backdrop-blur-lg shadow-lg' : 'bg-transparent'
+        isScrolled
+          ? 'bg-secondary/80 backdrop-blur-lg shadow-lg'
+          : 'bg-transparent'
       }`}
     >
       <nav className="container mx-auto flex items-center justify-between p-4 px-6 md:px-12">
+        {/* Logo + Brand */}
         <Magnetic>
           <a
             href="#home"
             onClick={(e) => handleNavClick(e, 'home')}
-            className="flex items-center space-x-2"
+            className="flex items-center space-x-3"
           >
-            <img
-              src="/header-logo.png"
-              alt="FlyCanFilm Logo"
-              className="h-12 w-12 object-contain"
-            />
+            {/* Logo background uses your accent green */}
+            <div className="h-10 w-10 rounded-md bg-accent p-1 overflow-hidden">
+              <img
+                src="/header-logo.png"
+                alt="Flycanfilm logo"
+                className="h-full w-full object-contain"
+              />
+            </div>
+            {/* Text */}
             <span className="text-2xl font-bold text-accent hover:text-accent-hover transition-colors">
-              FlyCanFilm
+              Flycanfilm
             </span>
           </a>
         </Magnetic>
