@@ -23,10 +23,10 @@ const Header: React.FC = () => {
             <a
               href="#home"
               onClick={(e) => handleNavClick(e, "home")}
-              className="flex items-center space-x-4"
+              className="flex items-center space-x-3"
             >
               {/* Logo box */}
-              <div className="h-12 w-12 rounded-md bg-accent p-1.5 flex items-center justify-center overflow-hidden">
+              <div className="h-12 w-12 rounded-md bg-accent p-1.5 overflow-hidden flex items-center justify-center">
                 <img
                   src="/header-logo.png"
                   alt="Flycanfilm logo"
@@ -34,7 +34,7 @@ const Header: React.FC = () => {
                 />
               </div>
               {/* Brand text */}
-              <span className="text-xl font-semibold text-accent hover:text-accent-hover transition-colors flex items-center">
+              <span className="text-xl font-semibold text-accent hover:text-accent-hover transition-colors">
                 Flycanfilm
               </span>
             </a>
