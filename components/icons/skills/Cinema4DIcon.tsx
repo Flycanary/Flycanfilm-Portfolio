@@ -1,12 +1,27 @@
 import React from 'react';
+import cinema4dLogo from './icons8-cinema-4d-48.png'; // your PNG
 
-const Cinema4DIcon: React.FC<{ className?: string }> = ({ className }) => (
-    <svg className={className} viewBox="0 0 100 98" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="100" height="98" rx="22" fill="#222222"/>
-        <rect x="22" y="21" width="56" height="56" rx="10" fill="#4F85FF"/>
-        <path d="M50 35C49.1667 38.5 45.6 47.4 39 49.5" stroke="white" strokeWidth="4" strokeLinecap="round"/>
-        <path d="M60.5 63C61.3333 59.5 64.9 50.6 71.5 48.5" stroke="white" strokeWidth="4" strokeLinecap="round"/>
+const Cinema4DIcon: React.FC<{ className?: string }> = ({ className }) => {
+  const boxWidth = 100;
+  const boxHeight = 98;
+
+  return (
+    <svg
+      className={className}
+      viewBox={`0 0 ${boxWidth} ${boxHeight}`}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width={boxWidth} height={boxHeight} rx="22" fill="#222222" />
+      <image
+        href={cinema4dLogo}
+        x="0"
+        y="0"
+        width={boxWidth}
+        height={boxHeight}
+        preserveAspectRatio="xMidYMid meet"
+      />
     </svg>
-);
+  );
+};
 
 export default Cinema4DIcon;
