@@ -25,15 +25,26 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenServices }) => {
   };
 
   return (
-    <header className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-secondary/80 backdrop-blur-lg shadow-lg' : 'bg-transparent'}`}>
+    <header
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-secondary/80 backdrop-blur-lg shadow-lg' : 'bg-transparent'
+      }`}
+    >
       <nav className="container mx-auto flex items-center justify-between p-4 px-6 md:px-12">
         <Magnetic>
           <a
             href="#home"
             onClick={(e) => handleNavClick(e, 'home')}
-            className="text-2xl font-bold text-accent hover:text-accent-hover transition-colors"
+            className="flex items-center space-x-2"
           >
-            AS
+            <img
+              src="/header-logo.png"
+              alt="FlyCanFilm Logo"
+              className="h-12 w-12 object-contain"
+            />
+            <span className="text-2xl font-bold text-accent hover:text-accent-hover transition-colors">
+              FlyCanFilm
+            </span>
           </a>
         </Magnetic>
 
