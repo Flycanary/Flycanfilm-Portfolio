@@ -27,8 +27,8 @@ const About: React.FC = () => {
           <div className="md:w-1/2 flex justify-center items-center">
             <div className="rounded-full w-64 h-64 md:w-80 md:h-80 mx-auto overflow-hidden shadow-2xl border-4 border-accent bg-secondary">
               <img
-                src="https://images.unsplash.com/photo-1504532242162-8a9d15024d27?q=80&w=800&h=800&fit=crop&fm=jpg&auto=format"
-                alt="Abstract image representing Abhishek Singh's artistic style"
+                src="/1000001052.jpg"
+                alt="Profile picture"
                 className="w-full h-full object-cover"
               />
             </div>
