@@ -1,99 +1,89 @@
-import React, { useState } from "react";
-import Magnetic from "./Magnetic";
+import React, { useState, useEffect } from 'react';
+import { NAV_LINKS } from '../constants';
+import type { NavLink } from '../types';
+import Magnetic from './Magnetic';
 
-const Header: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+interface HeaderProps {
+  onNavigate: (id: string) => void;
+  onOpenServices: () => void;
+}
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenServices }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-    setIsMenuOpen(false);
+    onNavigate(href);
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-sm shadow-md">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="flex justify-between items-center h-20">
-          
-          {/* Logo + Brand */}
-          <Magnetic>
-            <a
-              href="#home"
-              onClick={(e) => handleNavClick(e, "home")}
-              className="flex items-center space-x-4"
-            >
-              {/* Logo box */}
-              <div className="h-12 w-12 rounded-md bg-accent p-1.5 flex items-center justify-center overflow-hidden">
-                <img
-                  src="/header-logo.png"
-                  alt="Flycanfilm logo"
-                  className="h-full w-full object-contain"
-                />
-              </div>
-              {/* Brand text */}
-              <span className="text-xl font-semibold text-accent hover:text-accent-hover transition-colors flex items-center">
-                Flycanfilm
-              </span>
-            </a>
-          </Magnetic>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex space-x-8 text-base font-medium">
-            {["Home", "Showreel", "About", "Projects", "Services", "Contact"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                onClick={(e) => handleNavClick(e, item.toLowerCase())}
-                className="text-gray-300 hover:text-accent transition-colors"
-              >
-                {item}
-              </a>
-            ))}
-          </nav>
-
-          {/* Contact button (Desktop) */}
-          <div className="hidden md:block">
-            <Magnetic>
-              <a
-                href="#contact"
-                onClick={(e) => handleNavClick(e, "contact")}
-                className="bg-accent text-black px-4 py-2 rounded-md font-semibold hover:bg-accent-hover transition-colors"
-              >
-                Contact Me
-              </a>
-            </Magnetic>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden flex flex-col space-y-1.5"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+    <header
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-secondary/80 backdrop-blur-lg shadow-lg' : 'bg-transparent'
+      }`}
+    >
+      <nav className="container mx-auto flex items-center justify-between p-4 px-6 md:px-12">
+        <Magnetic>
+          <a
+            href="#home"
+            onClick={(e) => handleNavClick(e, 'home')}
+            className="flex items-center space-x-3"
           >
-            <span className="w-6 h-0.5 bg-white"></span>
-            <span className="w-6 h-0.5 bg-white"></span>
-            <span className="w-6 h-0.5 bg-white"></span>
-          </button>
-        </div>
-      </div>
+            {/* Bigger Logo */}
+            <img
+              src="/logo.png"
+              alt="Flycanfilm Logo"
+              className="h-14 w-14 object-contain" // Increased from h-10 w-10
+            />
+            {/* Slightly Smaller Text */}
+            <span className="text-xl font-bold text-accent hover:text-accent-hover transition-colors">
+              Flycanfilm
+            </span>
+          </a>
+        </Magnetic>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-black/95 px-6 py-4 space-y-4">
-          {["Home", "Showreel", "About", "Projects", "Services", "Contact"].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              onClick={(e) => handleNavClick(e, item.toLowerCase())}
-              className="block text-gray-300 hover:text-accent transition-colors"
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center space-x-8">
+          <ul className="flex items-center space-x-8">
+            {NAV_LINKS.map((link: NavLink) => (
+              <li key={link.name}>
+                {link.name === 'Services' ? (
+                  <button
+                    onClick={onOpenServices}
+                    className="text-text-secondary hover:text-text-primary transition-colors font-medium"
+                  >
+                    {link.name}
+                  </button>
+                ) : (
+                  <a
+                    href={`#${link.href}`}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="text-text-secondary hover:text-text-primary transition-colors font-medium"
+                  >
+                    {link.name}
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+          <Magnetic>
+            <button
+              onClick={() => onNavigate('contact')}
+              className="bg-accent text-text-primary font-bold py-2 px-4 rounded-md hover:bg-accent-hover transition-transform transform hover:scale-105"
             >
-              {item}
-            </a>
-          ))}
+              Contact Me
+            </button>
+          </Magnetic>
         </div>
-      )}
+      </nav>
     </header>
   );
 };
