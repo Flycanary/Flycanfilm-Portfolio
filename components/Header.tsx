@@ -37,13 +37,13 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenServices }) => {
             onClick={(e) => handleNavClick(e, 'home')}
             className="flex items-center space-x-3"
           >
-            {/* Bigger Logo */}
+            {/* Logo */}
             <img
-              src="/logo.png"
+              src="/header-logo.png"
               alt="Flycanfilm Logo"
-              className="h-14 w-14 object-contain" // Increased from h-10 w-10
+              className="h-16 w-16 object-contain" // slightly bigger logo
             />
-            {/* Slightly Smaller Text */}
+            {/* Brand text */}
             <span className="text-xl font-bold text-accent hover:text-accent-hover transition-colors">
               Flycanfilm
             </span>
